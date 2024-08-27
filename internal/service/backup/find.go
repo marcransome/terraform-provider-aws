@@ -73,7 +73,7 @@ func findVaultAccessPolicyByName(ctx context.Context, conn *backup.Client, name 
 
 	output, err := conn.GetBackupVaultAccessPolicy(ctx, input)
 
-	if errs.IsA[*awstypes.ResourceNotFoundException](err) || tfawserr.ErrCodeEquals(err, errCodeAccessDeniedException) {
+	if errs.IsA[*awstypes.ResourceNotFoundException](err) {
 		return nil, &retry.NotFoundError{
 			LastError:   err,
 			LastRequest: input,
@@ -98,7 +98,7 @@ func findVaultByName(ctx context.Context, conn *backup.Client, name string) (*ba
 
 	output, err := conn.DescribeBackupVault(ctx, input)
 
-	if errs.IsA[*awstypes.ResourceNotFoundException](err) || tfawserr.ErrCodeEquals(err, errCodeAccessDeniedException) {
+	if errs.IsA[*awstypes.ResourceNotFoundException](err) {
 		return nil, &retry.NotFoundError{
 			LastError:   err,
 			LastRequest: input,

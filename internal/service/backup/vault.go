@@ -189,7 +189,7 @@ func resourceVaultDelete(ctx context.Context, d *schema.ResourceData, meta inter
 		BackupVaultName: aws.String(d.Id()),
 	})
 
-	if errs.IsA[*awstypes.ResourceNotFoundException](err) || tfawserr.ErrCodeEquals(err, errCodeAccessDeniedException) {
+	if errs.IsA[*awstypes.ResourceNotFoundException](err) {
 		return diags
 	}
 
